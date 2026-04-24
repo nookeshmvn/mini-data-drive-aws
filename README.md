@@ -13,7 +13,7 @@ Instead of saving files directly onto a web server's hard drive, this Node.js ap
 3. The Node.js backend securely transmits the file to an Amazon S3 Bucket using the AWS SDK.
 4. When a user wants to download their file, the application generates a temporary, self-destructing **Pre-Signed URL**.
 5. The user downloads the file securely, straight from S3.
-![Architecture Diagram](architecture-diagram.png)
+![Architecture Diagram](mini-data-drive-aws/architecture-diagram.png)
 
 ## ⚙️ Key Cloud & Security Features
 
