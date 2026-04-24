@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Data Drive</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; background-color: #f4f7f6; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; }
+        .upload-box { border: 2px dashed #0066cc; padding: 20px; text-align: center; margin-bottom: 20px; border-radius: 5px; }
+        .file-list { list-style: none; padding: 0; }
+        .file-list li { background: #eee; margin: 10px 0; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-radius: 4px; }
+        a { background: #0066cc; color: white; text-decoration: none; padding: 8px 12px; border-radius: 4px; }
+        a:hover { background: #004c99; }
+        button { background: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #218838; }
+        .error { color: red; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>☁️ My Secure Mini Drive</h1>
+
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+
+        <div class="upload-box">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="document" required>
+                <button type="submit">Upload to S3</button>
+            </form>
+        </div>
+
+        <h3>Secure Vault Files:</h3>
+        <ul class="file-list">
+            <% if (files.length === 0) { %>
+                <p>No files uploaded yet.</p>
+            <% } else { %>
+                <% files.forEach(function(file) { %>
+                    <li>
+                        <span>📄 <%= file.Key %></span>
+                        <a href="/download/<%= encodeURIComponent(file.Key) %>" target="_blank">Secure Download</a>
+                    </li>
+                <% }) %>
+            <% } %>
+        </ul>
+    </div>
+</body>
+</html>
